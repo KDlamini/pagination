@@ -36,7 +36,12 @@ function App() {
           ))
         }
 
-        <Pagination setCurrentPage={setCurrentPage} />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          posts={posts}
+          postsPerPage={postsPerPage}
+        />
       </section>
     </main>
   );

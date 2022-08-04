@@ -1,20 +1,35 @@
 import React from 'react'
 
-const Pagination = () => {
+const Pagination = ({ posts, postsPerPage, currentPage, setCurrentPage }) => {
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const pages = Array.from({length: totalPages}, (_, i) => i + 1);
+
   return (
     <div className="my-5">
       <nav aria-label="..." className="d-flex justify-content-center">
-        <ul class="pagination m-0">
-          <li class="page-item disabled">
-            <a class="page-link " href="#page">Previous</a>
+        <ul className="pagination m-0">
+          <li className="page-item disabled">
+            <a className="page-link " href="#page">Previous</a>
           </li>
-          <li class="page-item"><a class="page-link" href="#page">1</a></li>
-          <li class="page-item active" aria-current="page">
-            <span class="page-link">2</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#page">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#page">Next</a>
+          {
+            pages.map(page => (
+              <li
+              key={page}
+              className={`page-item ${page === currentPage ? 'active' : ''}`}
+              aria-current={page === currentPage ? 'page' : ''}
+              >
+                <a
+                  className="page-link"
+                  onClick={() => setCurrentPage(page)}
+                  href="#page"
+                >
+                {page}
+                </a>
+              </li>
+            ))
+          }
+          <li className="page-item">
+            <a className="page-link" href="#page">Next</a>
           </li>
         </ul>
       </nav>
