@@ -3,11 +3,19 @@ import React from 'react'
 const Pagination = ({ posts, postsPerPage, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(posts.length / postsPerPage);
   const pages = Array.from({length: totalPages}, (_, i) => i + 1);
+  const pageStart = currentPage === 1;
+  const pageEnd = currentPage === totalPages;
 
   const Previous = () => {
-    if (currentPage === 1) return null;
+    if (pageStart) return null;
 
     setCurrentPage(currentPage - 1);
+  }
+
+  const Next = () => {
+    if (pageEnd) return null;
+
+    setCurrentPage(currentPage + 1);
   }
 
 
@@ -15,7 +23,7 @@ const Pagination = ({ posts, postsPerPage, currentPage, setCurrentPage }) => {
     <div className="my-5">
       <nav aria-label="..." className="d-flex justify-content-center">
         <ul className="pagination m-0">
-          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+          <li className={`page-item ${pageStart ? 'disabled' : ''}`}>
             <a
               className="page-link"
               href="#page"
@@ -41,8 +49,14 @@ const Pagination = ({ posts, postsPerPage, currentPage, setCurrentPage }) => {
               </li>
             ))
           }
-          <li className="page-item">
-            <a className="page-link" href="#page">Next</a>
+          <li className={`page-item ${pageEnd ? 'disabled' : ''}`}>
+            <a
+            className="page-link"
+            href="#page"
+            onClick={Next}
+            >
+            Next
+            </a>
           </li>
         </ul>
       </nav>
