@@ -5,4 +5,6 @@ const getPosts = async () => {
     return response.data;
 }
 
-module.exports = { getPosts };
+export { 
+    getPosts 
+};
